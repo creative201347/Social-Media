@@ -63,7 +63,7 @@
     outline: none;
     background-color: var(--inputColor);
     border-radius: 8px;
-    padding: 20px;
+    padding: 0.8rem 1.5rem;
     flex:1;
   }
   
@@ -84,7 +84,7 @@
   .authForm{
       background-color: var(--cardColor);
       border-radius: 1rem;
-      padding: 1rem;
+      padding: 1rem 4rem;
   }
   
   .authForm>div{
