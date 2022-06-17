@@ -1,10 +1,11 @@
 import React from "react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { login, signup } from "../../actions/AuthAction";
 import Logo from "../../img/logo.png";
 import "./Auth.css";
 
 const Auth = () => {
-  const [isSignUp, setIsSignUp] = useState(true);
   const initialState = {
     firstname: "",
     lastname: "",
@@ -12,19 +13,29 @@ const Auth = () => {
     password: "",
     confirmpass: "",
   };
+  const [isSignUp, setIsSignUp] = useState(true);
   const [data, setData] = useState(initialState);
   const [confirmPass, setConfirmPass] = useState(true);
+
+  const loading = useSelector((state) => state.authReducer.loading);
+  const dispatch = useDispatch();
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
   const resetForm = () => {
     setData(initialState);
-    setConfirmPass(true);
+    setConfirmPass(confirmPass);
   };
   const handleSubmit = (e) => {
+    setConfirmPass(true);
     e.preventDefault();
     if (isSignUp) {
-      data.password !== data.confirmpass && setConfirmPass(false);
+      data.password === data.confirmpass
+        ? dispatch(signup(data))
+        : setConfirmPass(false);
+    } else {
+      dispatch(login(data));
     }
   };
 
@@ -90,6 +101,7 @@ const Auth = () => {
                 className="infoInput"
                 name="confirmpass"
                 placeholder="Confirm Password"
+                onChange={handleChange}
               />
             )}
           </div>
@@ -154,8 +166,12 @@ const Auth = () => {
               )}
             </span>
           </div>
-          <button className="button infoButton" type="submit">
-            {isSignUp ? "Signup" : "Login"}
+          <button
+            className="button infoButton"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Loading..." : isSignUp ? "SignUp" : "Login"}
           </button>
         </form>
       </div>
