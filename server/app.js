@@ -1,5 +1,6 @@
-import express from "express";
 import bodyParser from "body-parser";
+import express from "express";
+import cors from "cors";
 
 import logger from "./utils/logger.js";
 import { connectToDatabase } from "./utils/database.js";
@@ -12,6 +13,7 @@ dotenv.config();
 const app = express();
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(cors());
 
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
