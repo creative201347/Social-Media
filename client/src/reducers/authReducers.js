@@ -2,7 +2,7 @@ const authReducer = (
   state = { authData: null, loading: false, error: false },
   action
 ) => {
-  switch (action.types) {
+  switch (action.type) {
     case "AUTH_START":
       return { ...state, loading: true, error: false };
     case "AUTH_SUCCESS":
