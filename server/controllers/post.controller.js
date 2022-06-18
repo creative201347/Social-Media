@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
-import PostModel from "../models/user.model";
-import UserModel from "../models/post.model";
+import UserModel from "../models/user.model.js";
+import PostModel from "../models/post.model.js";
 
 export const createPost = async (req, res) => {
   const newPost = new PostModel(req.body);
   try {
     await newPost.save();
-    return res.status(200).json("Post created!");
+    return res.status(200).json(newPost);
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    res.status(500).json(error);
   }
 };
 
