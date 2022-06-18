@@ -7,9 +7,11 @@ import {
   UilSchedule,
   UilTimes,
 } from "@iconscout/react-unicons";
-import ProfileImage from "../../img/profileImg.jpg";
 import "./PostShare.css";
 import { uploadImage, uploadPost } from "../../actions/uploadAction";
+
+const serverPublic =
+  process.env.REACT_APP_PUBLIC_FOLDER || "http://localhost:4000/images/";
 
 const PostShare = () => {
   const [image, setImage] = useState(null);
@@ -54,9 +56,17 @@ const PostShare = () => {
     dispatch(uploadPost(newPost));
     resetShare();
   };
+
   return (
     <div className="PostShare">
-      <img src={ProfileImage} alt="" />
+      <img
+        src={
+          user.profilePicture
+            ? serverPublic + user.profilePicture
+            : serverPublic + "defaultProfile.png"
+        }
+        alt=""
+      />
       <div>
         <input type="text" placeholder="What's happening" ref={desc} required />
         <div className="postOptions">
