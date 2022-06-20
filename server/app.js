@@ -6,8 +6,10 @@ import logger from "./utils/logger.js";
 import { connectToDatabase } from "./utils/database.js";
 import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
+import chatRoutes from "./routes/chat.route.js";
 import postRoutes from "./routes/post.route.js";
 import uploadRoutes from "./routes/upload.route.js";
+import messageRoutes from "./routes/message.route.js";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -21,8 +23,10 @@ app.use(cors());
 
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
+app.use("/chat", chatRoutes);
 app.use("/posts", postRoutes);
 app.use("/upload", uploadRoutes);
+app.use("/message", messageRoutes);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, async () => {
